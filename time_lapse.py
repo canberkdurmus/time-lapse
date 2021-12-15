@@ -22,10 +22,11 @@ class TimeLapse:
 
     def time_lapse_loop(self):
         while len(self.images) < self.max_frames:
-            print(str(len(self.images)) + '/' + str(self.max_frames))
-            _, frame = self.cap.read()
-            self.save_img(frame)
-            time.sleep(self.period)
+            ret, frame = self.cap.read()
+            if ret:
+                print(str(len(self.images)) + '/' + str(self.max_frames))
+                self.save_img(frame)
+                time.sleep(self.period)
         self.save_video()
 
     def save_img(self, frame):
